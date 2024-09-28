@@ -1,0 +1,24 @@
+{
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build --mode client && vite build"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.13.1",
+    "@hono/valibot-validator": "^0.3.0",
+    "@tanstack/react-router": "^1.58.11",
+    "hono": "^4.6.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "valibot": "^0.42.1"
+  },
+  "devDependencies": {
+    "@hono/vite-dev-server": "^0.16.0",
+    "@tanstack/router-devtools": "^1.58.11",
+    "@tanstack/router-plugin": "^1.58.10",
+    "@types/react": "^18.2.60",
+    "@types/react-dom": "^18.2.19",
+    "vite": "^5.4.8"
+  }
+}
