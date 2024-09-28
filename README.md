@@ -15,4 +15,5 @@ npm run dev
 
 ```shell
 npm run build
+cd dist/ && node index.js
 ```
