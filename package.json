@@ -2,7 +2,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --mode client && vite build"
+    "build": "vite build --mode client && vite build --mode server",
+    "build-server": "vite build --mode server"
   },
   "dependencies": {
     "@hono/node-server": "^1.13.1",

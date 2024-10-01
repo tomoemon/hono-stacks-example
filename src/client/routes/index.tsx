@@ -1,9 +1,9 @@
-import { createLazyFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 import { hc } from 'hono/client'
 import { useEffect, useState } from 'react'
 import { HonoApiRoute } from '../../server/api'
 
-export const Route = createLazyFileRoute('/')({
+export const Route = createFileRoute('/')({
 	component: Index,
 })
 
@@ -25,17 +25,21 @@ function Hello() {
 	const api = hc<HonoApiRoute>('/api')
 	const [response, setResponse] = useState<string | null>(null)
 	useEffect(() => {
-		(async function fetchData() {
-			const res = await api.hello.$get({ query: { name: "bob" } });
+		; (async function fetchData() {
+			const res = await api.hello.$get({ query: { name: 'bob' } })
 			setResponse((await res.json()).message)
-		})();
-	}, []);
+		})()
+	}, [])
 	return <div>{response}</div>
 }
 
 function Counter() {
 	const [count, setCount] = useState(0)
-	return <button onClick={() => setCount(count + 1)}>You clicked me {count} times</button>
+	return (
+		<button onClick={() => setCount(count + 1)}>
+			You clicked me {count} times
+		</button>
+	)
 }
 
 const ClockButton = () => {
@@ -43,14 +47,17 @@ const ClockButton = () => {
 	const [response, setResponse] = useState<string | null>(null)
 
 	const handleClick = async () => {
-		const response = await api.clock.$get();
+		const response = await api.clock.$get()
 		const data = await response.json()
-		const headers = Array.from(response.headers.entries()).reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {})
+		const headers = Array.from(response.headers.entries()).reduce(
+			(acc, [key, value]) => ({ ...acc, [key]: value }),
+			{},
+		)
 		const fullResponse = {
 			url: response.url,
 			status: response.status,
 			headers,
-			body: data
+			body: data,
 		}
 		setResponse(JSON.stringify(fullResponse, null, 2))
 	}
