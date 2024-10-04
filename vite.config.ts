@@ -44,6 +44,11 @@ export default defineConfig(({ mode }) => {
   } else {
     // dev server
     return {
+      build: {
+        rollupOptions: {
+          input: './src/client/clientIndex.tsx',
+        }
+      },
       plugins: [
         tanstack,
         devServer({
