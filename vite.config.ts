@@ -2,7 +2,6 @@ import devServer from '@hono/vite-dev-server'
 import adapter from '@hono/vite-dev-server/node'
 import { TanStackRouterVite } from '@tanstack/router-plugin/vite'
 import { defineConfig } from 'vite'
-import { builtinModules } from "node:module";
 
 const tanstack = TanStackRouterVite({
   routesDirectory: 'src/client/routes',
@@ -28,15 +27,12 @@ export default defineConfig(({ mode }) => {
     }
   } else if (mode === 'server') {
     return {
-      ssr: {
-        // server side のコードの依存関係もバンドルする
-        noExternal: process.env.NODE_ENV === "production" || undefined,
-        external: [...builtinModules, ...builtinModules.map((m) => `node:${m}`)],
-      },
+      // サーバ側の依存パッケージはバンドルされないので、実行時に node_modules が必要
       build: {
         ssr: true,
         outDir: 'dist',
         emptyOutDir: false,
+        minify: true,
         rollupOptions: {
           input: './src/server/serverIndex.tsx',
           output: {
